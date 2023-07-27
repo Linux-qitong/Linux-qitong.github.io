@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>青稚的空间</title>
+  
+  <subtitle>欢迎光临</subtitle>
+  <link href="https://linux-qitong.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://linux-qitong.github.io/"/>
+  <updated>2023-07-27T01:08:49.212Z</updated>
+  <id>https://linux-qitong.github.io/</id>
+  
+  <author>
+    <name>青稚°</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux内核合集</title>
+    <link href="https://linux-qitong.github.io/2023/07/27/linux%E5%86%85%E6%A0%B8%E5%90%88%E9%9B%86/"/>
+    <id>https://linux-qitong.github.io/2023/07/27/linux%E5%86%85%E6%A0%B8%E5%90%88%E9%9B%86/</id>
+    <published>2023-07-27T00:58:34.000Z</published>
+    <updated>2023-07-27T01:08:49.212Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>由本人编译的debian系通用内核<br>有基于xanmod<br>基于zen<br>基于ubuntu配置文件<br>基于deepin配置文件<br>基于pve等配置文件<br>每个内核的体验效果不同<br>下载链接在评论区了（实时更新）</p>]]></content>
+    
+    
+    <summary type="html">由本人编译的debian系通用内核
+有基于xanmod
+基于zen
+基于ubuntu配置文件
+基于deepin配置文件
+基于pve等配置文件
+每个内核的体验效果不同
+下载链接在评论区了（实时更新）</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>重新打包deb</title>
+    <link href="https://linux-qitong.github.io/2023/06/27/%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85deb/"/>
+    <id>https://linux-qitong.github.io/2023/06/27/%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85deb/</id>
+    <published>2023-06-27T01:28:03.000Z</published>
+    <updated>2023-06-27T01:48:59.118Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>1.用命令创建好目录结构</p><p>mkdir -p newdeb build&#x2F;DEBIAN</p><p>2.用命令把deb包文件解压</p><p>dpkg-deb -x 包名.deb build&#x2F;</p><p>3.用命令解压控制信息</p><p>dpkg-deb -e 包名.deb build&#x2F;DEBIAN&#x2F;</p><p>4.把build中的文件重新打包到newdeb目录生成新的deb</p><p>dpkg-deb -b build newdeb&#x2F;</p><p>5.小插曲</p><p>我昨日询问了开发者<br><img src="https://storage.deepin.org/thread/202306211030397865_202306191742474292_mmexport1687163238645.jpg" alt="ubuntu的独一无二"><br><img src="https://storage.deepin.org/thread/202306211030529219_IMG_20230621_102749.jpg" alt="神必ubnutu"><br>使用github自动编译的deb，由于github环境是ubuntu，而deepin不支持zst的deb，所以需要转换为xz</p><p>所以请把第四步的命令替换为(deepin下解压，无需替换命令):</p><p>dpkg-deb -Z xz -b build&#x2F; newdeb&#x2F;</p><p>注意:如果deb包名太长，可以把包改为1.deb之后再解压</p><p>deepin解压zst格式的deb，请先解压deb，之后根据下面方法进行手动解压</p><p>装zstd，用tar解压</p><p>sudo apt install zstd</p><p>tar -I zstd -xvf 包名.tar.zst</p><p>之后手动把解压出来的文件，放到build，build&#x2F;DEBIAN&#x2F;</p><p>深度评论转载：</p><p>深度之恋：</p><p>data.tar.zst解压后放到，build<br>control.tar.zst解压后放到，build&#x2F;DEBIAN&#x2F;</p><p>忘记 、过去：</p><p>也可以直接用 dpkg-deb -R xxx.deb yyy 这样子解压到文件夹里，可以节约时间 XD</p><p>如果是 zst 格式的，可以右键用归档管理器打开 deb，然后手动把 data 和 control 两个压缩文件解压出来再重新打包</p><p>shenmo:</p><p>忘记 、过去说的是用file-roller打开deb</p>]]></content>
+    
+    
+    <summary type="html">1.用命令创建好目录结构
+
+mkdir -p newdeb build/DEBIAN
+
+2.用命令把deb包文件解压
+
+dpkg-deb -x 包名.deb build/
+
+3.用命令解压控制信息
+
+dpkg-deb -e 包名.deb build/DEBIAN/
+
+4.把build中的文件重新打包到newdeb目录生成新的deb
+
+dpkg-deb -b build newdeb/
+
+5.小插曲
+
+我昨日询问了开发者
+
+
+使用github自动编译的deb，由于github环境是ubuntu，而deepin不支持zst的deb，所以需要转换为xz
+
+所以请把第四步的命令替换为(deepin下解</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>音乐播放器</title>
+    <link href="https://linux-qitong.github.io/2023/05/09/%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/"/>
+    <id>https://linux-qitong.github.io/2023/05/09/%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/</id>
+    <published>2023-05-09T03:33:47.000Z</published>
+    <updated>2023-07-05T00:07:40.381Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-OqhzDHgk" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="3013129747" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="true" data-mutex="false" data-listmaxheight="340px" data-preload="none" data-theme="#ad7a86"    ></div><p>音乐，有抒发快乐情绪的，也有抒发悲伤情绪的，快乐时听欢快的歌曲会令人更舒畅，就是不快乐时听也会被快乐的乐曲所感染。而悲伤的音乐则更加能表达出人们的思想感受。</p>]]></content>
+    
+    
+    <summary type="html">音乐，有抒发快乐情绪的，也有抒发悲伤情绪的，快乐时听欢快的歌曲会令人更舒畅，就是不快乐时听也会被快乐的乐曲所感染。而悲伤的音乐则更加能表达出人们的思想感受。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>编译deb内核</title>
+    <link href="https://linux-qitong.github.io/2023/05/08/%E7%BC%96%E8%AF%91deb%E5%86%85%E6%A0%B8/"/>
+    <id>https://linux-qitong.github.io/2023/05/08/%E7%BC%96%E8%AF%91deb%E5%86%85%E6%A0%B8/</id>
+    <published>2023-05-08T04:20:17.000Z</published>
+    <updated>2023-06-27T01:26:09.286Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>如果配置高可以考虑Vmbox编译，话不多说，开始教程。<br>1.开启源码仓库<br>为了可以使用 apt build-dep linux 自动安装编译所需的依赖，需要先为 apt 配置源码仓库<br>2.编辑 &#x2F;etc&#x2F;apt&#x2F;sources.list，有些发行版（如Ubuntu）默认将 deb-src 开头的源码仓库注释掉了，只需要取消注释就可以了；而 UOS没有，所以UOS要编译就得添加：<br>echo “deb-src <a href="https://home-packages.chinauos.com/home">https://home-packages.chinauos.com/home</a> plum main contrib non-free” &gt;&gt; &#x2F;etc&#x2F;apt&#x2F;sources.list<br>3.安装需要的依赖</p><p>4.编辑 &#x2F;etc&#x2F;apt&#x2F;sources.list 后执行sudo apt update</p><p>5.浏览器下载内核源码，（也可以安装 wget 下载内核源码包：sudo apt install -y wget）</p><p>6.自动下载编译所需的依赖执行命令：sudo apt build-dep -y linux<br>开始编译<br>7.下载需要的源码<br>wget <a href="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.3.1.tar.xz%EF%BC%88wget%E4%B8%8B%E8%BD%BD%E6%96%B9%E5%BC%8F%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8B%E8%BD%BD%E5%B0%B1%E4%B8%8D%E8%BF%87%E5%A4%9A%E6%8F%8F%E8%BF%B0%E4%BA%86%EF%BC%89">https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.3.1.tar.xz（wget下载方式，浏览器下载就不过多描述了）</a></p><p>8.解压文件，这里用命令解压，也可以用压缩软件解压</p><p>tar -xf linux-6.3.1.tar.xz</p><p>9.进入解压目录，也可以用文件管理打开目录后，打开终端</p><p>cd linux-6.3.1&#x2F;</p><p>10.复制内核配置文件</p><p>cp &#x2F;boot&#x2F;config-“$(uname -r)” .config</p><p>11.编译deb</p><p>make deb-pkg -j4(根据自己CPU线程数修改j8，j11等)</p><p>12.我们只需要 linux-headers 和 linux-image 开头的两个 deb 文件，名字中带有 dbg，是调试内核用的。</p><p>13.双击 deb 文件安装，或者 sudo dpkg -i *.deb 安装</p><p>14.如果提示缺少git仓库，在编译内核目录输入以下命令</p><p>git init</p><p>git add .</p><p>git commit -m “1”</p><p>15.如果编译快完成提示zstd报错，咱们不要慌。</p><p>执行sudo aptitude install zstd</p><p>之后重新输入命令编译就可以了，不用担心之前的编译数据丢失。</p><p>16.完结</p><p>深度论坛评论：</p><p>DebuggerX：<br>1.禁用DEBUG_INFO可以极大减少编译所需的时间和空间，也就是避免生成那个很大的dbg.deb<br>2.可以利用github action去自动化编译<br>具体可以参考我的这篇博客:<br><a href="https://www.debuggerx.com/2021/08/17/Using-github-actions-to-build-kernel-deb-packages/">https://www.debuggerx.com/2021/08/17/Using-github-actions-to-build-kernel-deb-packages/</a></p><p>fuuko：<br>其实配置低也可以用虚拟化环境，把vmbox换成docker就行了，然后拉debian的镜像</p><p>深度之恋:<br>Y： 模块驱动编译到内核中，启动时自动加载<br>N： 空格:表示该功能不编译到内核中，即新的内核将不支持该功能<br>M：模块会被编译，但是不会被编译到内核中，只是生成.o文件，我们可以收集这些.o文件做到linux的文件系统中，然后用insmod实现动态加载</p>]]></content>
+    
+    
+    <summary type="html">如果配置高可以考虑Vmbox编译，话不多说，开始教程。
+1.开启源码仓库
+为了可以使用 apt build-dep linux 自动安装编译所需的依赖，需要先为 apt 配置源码仓库
+2.编辑 /etc/apt/sources.list，有些发行版（如Ubuntu）默认将 deb-src 开头的源码仓库注释掉了，只需要取消注释就可以了；而 UOS没有，所以UOS要编译就得添加：
+echo “deb-src https://home-packages.chinauos.com/home plum main contrib non-free” &gt;&gt; /etc/apt/sources.list
+3.</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>玲珑包</title>
+    <link href="https://linux-qitong.github.io/2023/05/08/%E7%8E%B2%E7%8F%91%E5%8C%85/"/>
+    <id>https://linux-qitong.github.io/2023/05/08/%E7%8E%B2%E7%8F%91%E5%8C%85/</id>
+    <published>2023-05-08T04:17:39.000Z</published>
+    <updated>2023-05-08T04:19:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>我看到有人需要玲珑，所以编译了玲珑包。</p><p>debian12会在正式发行后进行一个出包，debian sid请自己编译，24.04也会在发行后有时间，就会编译。</p><p>感谢神末shenmo，深度团队，提供代码。</p><p>里面有uos22的玲珑包，uos日后不需要适配了，会集成玲珑。</p><p>安装后操作</p><p>ll-cli repo modify <a href="https://repo.linglong.space/">https://repo.linglong.space</a></p><p>如果无效</p><p>ll-cli repo modify <a href="https://mirror-repo-linglong.deepin.com/">https://mirror-repo-linglong.deepin.com/</a></p><p>下载链接：<a href="https://gitee.com/Linux-qitong/compile-exquisitely/releases/tag/%E7%8E%B2%E7%8F%91">https://gitee.com/Linux-qitong/compile-exquisitely/releases/tag/%E7%8E%B2%E7%8F%91</a></p>]]></content>
+    
+    
+    <summary type="html">我看到有人需要玲珑，所以编译了玲珑包。
+
+debian12会在正式发行后进行一个出包，debian sid请自己编译，24.04也会在发行后有时间，就会编译。
+
+感谢神末shenmo，深度团队，提供代码。
+
+里面有uos22的玲珑包，uos日后不需要适配了，会集成玲珑。
+
+安装后操作
+
+ll-cli repo modify https://repo.linglong.space
+
+如果无效
+
+ll-cli repo modify https://mirror-repo-linglong.deepin.com/
+
+下载链接：https://gitee.com/Linux-qitong/compi</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>deepin合集</title>
+    <link href="https://linux-qitong.github.io/2023/03/21/deepin%E5%90%88%E9%9B%86/"/>
+    <id>https://linux-qitong.github.io/2023/03/21/deepin%E5%90%88%E9%9B%86/</id>
+    <published>2023-03-21T04:31:28.000Z</published>
+    <updated>2023-05-08T04:28:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>这是一个展示视频的帖子，从这里能看出本人对深度的热爱，deepin加油！</p><p>版主支持</p><p>这里是讲把爱留给深度（深度之恋）当上版主离不开大家的支持。</p><iframe src="https://player.bilibili.com/player.html?bvid=BV1Zk4y1J7uU&page=1" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe><p>树叶deepin</p><iframe src="https://player.bilibili.com/player.html?bvid=BV1tL411d76G&page=1" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe><p>deepinV23修改vivo</p><iframe src="https://player.bilibili.com/player.html?bvid=BV1z24y1n7ft&page=1" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe><p>更多内容请去bilibili以获取最佳体验。</p>]]></content>
+    
+    
+    <summary type="html">这是一个展示视频的帖子，从这里能看出本人对深度的热爱，deepin加油！
+
+版主支持
+
+这里是讲把爱留给深度（深度之恋）当上版主离不开大家的支持。
+
+树叶deepin
+
+deepinV23修改vivo
+
+更多内容请去bilibili以获取最佳体验。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>npm安装（ 新手向）</title>
+    <link href="https://linux-qitong.github.io/2023/03/19/npm%E5%AE%89%E8%A3%85%EF%BC%88%E6%96%B0%E6%89%8B%E5%90%91%EF%BC%89/"/>
+    <id>https://linux-qitong.github.io/2023/03/19/npm%E5%AE%89%E8%A3%85%EF%BC%88%E6%96%B0%E6%89%8B%E5%90%91%EF%BC%89/</id>
+    <published>2023-03-19T11:46:05.000Z</published>
+    <updated>2023-03-19T11:48:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>具体安装请看下文。</p><p>sudo身份运行下面的命令，下载执行NodeSource安装脚本：前面加sudo空格。</p><p>curl -sL <a href="https://deb.nodesource.com/setup_18.X">https://deb.nodesource.com/setup_18.X</a></p><p>这个根据版本更新变化，比如出19了，改成19.X，20.X等。(如果你需要其他版本，比如旧版本也可以修改。)</p><p>这个脚本会添加 NodeSource 的签名到系统中，创建一个apt源文件，安装必备软件包，并刷新apt 缓存。</p><p>NodeSource源被启用后，输入命令:</p><p>sudo apt install nodejs</p><p>nodejs包含node和npm二进制包。</p><p>验证是否正确安装</p><p>验证node: node –version</p><p>验证npm: npm –version</p><p>需要从npm编译本地扩展，安装开发工具。</p><p>sudo apt build-essential</p><p>以上就是这些，感谢大家支持。</p>]]></content>
+    
+    
+    <summary type="html">具体安装请看下文。
+
+sudo身份运行下面的命令，下载执行NodeSource安装脚本：前面加sudo空格。
+
+curl -sL https://deb.nodesource.com/setup_18.X
+
+这个根据版本更新变化，比如出19了，改成19.X，20.X等。(如果你需要其他版本，比如旧版本也可以修改。)
+
+这个脚本会添加 NodeSource 的签名到系统中，创建一个apt源文件，安装必备软件包，并刷新apt 缓存。
+
+NodeSource源被启用后，输入命令:
+
+sudo apt install nodejs
+
+nodejs包含node和npm二进制包。
+
+验证是否正确安装
+
+验</summary>
+    
+    
+    
+    <category term="软件" scheme="https://linux-qitong.github.io/categories/%E8%BD%AF%E4%BB%B6/"/>
+    
+    
+    <category term="安装" scheme="https://linux-qitong.github.io/tags/%E5%AE%89%E8%A3%85/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于老爷机使用系统</title>
+    <link href="https://linux-qitong.github.io/2023/03/15/%E5%85%B3%E4%BA%8E%E8%80%81%E7%88%B7%E6%9C%BA%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://linux-qitong.github.io/2023/03/15/%E5%85%B3%E4%BA%8E%E8%80%81%E7%88%B7%E6%9C%BA%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F/</id>
+    <published>2023-03-15T00:52:41.000Z</published>
+    <updated>2023-03-19T11:44:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>有人说老年机建议使用什么系统呢？<br>我的建议linux mint xfce</p><p>为什么不是deepin（卡顿不适合老爷机，dde对老爷机优化不是很好！），为什么不是其他系统（太复杂了），我昨天晚上借了台ddr2电脑，具体配置我忘了，amd双核处理器，gt9600显卡，七彩虹主板，硬盘是固态硬盘（老爷机升级个固态硬盘很有必要），内存4gb（2gb内存的老爷机升级一下内存才20多块钱，4gb基本够日用了！），我找了，附近57岁老人试了（岁数太大的不会用电脑，那个电脑就是他的！）</p><p>开始咱们的安装教程（省流小提示，不懂安装的看，大佬请划走）</p><p>制作启动盘，拿一个u盘，下载ventoy，也可以直接刻录进u盘，优先推荐ventoy，<a href="https://www.ventoy.net/cn/doc_linux_gui.html#:~:text=%E4%B8%BA%E4%BA%86%E6%96%B9%E4%BE%BF%E6%93%8D%E4%BD%9C%EF%BC%8CVentoy%20%E4%BB%8E1.0.52%E7%89%88%E6%9C%AC%E5%BC%80%E5%A7%8B%EF%BC%8C%E5%9C%A8%20Linux%20%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E4%BE%9B%E4%BA%86%E5%8E%9F%E7%94%9F%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%8C%96%E6%93%8D%E4%BD%9C%E7%95%8C%E9%9D%A2%E3%80%82%20%E5%90%8C%E6%97%B6%E6%94%AF%E6%8C%81%20x86_64%2Fi386%2Farm64%2Fmips64%20%E7%B3%BB%E7%BB%9F%E3%80%82%20%E5%8F%A6%E5%A4%96%E6%A0%B9%E6%8D%AE%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E7%9A%84%E4%B8%8D%E5%90%8C%E5%88%86%E5%88%AB%E6%8F%90%E4%BE%9B%E4%BA%86%E5%9F%BA%E4%BA%8E,GTK%20%E5%92%8C%20QT%20%E7%9A%84%E7%89%88%E6%9C%AC%E3%80%82%20Linux%20%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%9A%84%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80%E5%92%8C%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F%E4%B8%8E%20Windows%20%E4%B8%8B%E7%9A%84%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8C%81%E4%B8%80%E8%87%B4%E3%80%82">https://www.ventoy.net/cn/doc_linux_gui.html#:~:text=%E4%B8%BA%E4%BA%86%E6%96%B9%E4%BE%BF%E6%93%8D%E4%BD%9C%EF%BC%8CVentoy%20%E4%BB%8E1.0.52%E7%89%88%E6%9C%AC%E5%BC%80%E5%A7%8B%EF%BC%8C%E5%9C%A8%20Linux%20%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E4%BE%9B%E4%BA%86%E5%8E%9F%E7%94%9F%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%8C%96%E6%93%8D%E4%BD%9C%E7%95%8C%E9%9D%A2%E3%80%82%20%E5%90%8C%E6%97%B6%E6%94%AF%E6%8C%81%20x86_64%2Fi386%2Farm64%2Fmips64%20%E7%B3%BB%E7%BB%9F%E3%80%82%20%E5%8F%A6%E5%A4%96%E6%A0%B9%E6%8D%AE%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E7%9A%84%E4%B8%8D%E5%90%8C%E5%88%86%E5%88%AB%E6%8F%90%E4%BE%9B%E4%BA%86%E5%9F%BA%E4%BA%8E,GTK%20%E5%92%8C%20QT%20%E7%9A%84%E7%89%88%E6%9C%AC%E3%80%82%20Linux%20%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%9A%84%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80%E5%92%8C%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F%E4%B8%8E%20Windows%20%E4%B8%8B%E7%9A%84%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F%E4%BF%9D%E6%8C%81%E4%B8%80%E8%87%B4%E3%80%82</a></p><p>之后下载linux mint xfce</p><p>下载链接<a href="https://linuxmint.com/download.php">https://linuxmint.com/download.php</a></p><p>当您从 U 盘（或 DVD）启动计算机时，Linux Mint 会启动 .它会在用户被调用时自动登录，并向您显示带有安装程序的桌面</p><p>点install linux mint</p><p>选择语言，连接网络（可忽略这个步骤，不建议忽略）（无线网络，有线网络忽略该步骤），选择安装多媒体解码器（联网后安装选择），设置时区为上海，设置用户名，根据自己想起的用户名设置，等待安装结束，安装结束重启，</p><p>进入系统，找到软件源设置，换源，驱动管理器，安装驱动NVIDIA闭源驱动（仅限于NVIDIA显卡）！</p><p>以肉桂桌面为例子寻找，除了桌面环境不同其他的都一样，找到这两个软件就可以了！</p><p>安装NVIDIA打开驱动管理器，选择安装即可</p><p>之后打开终端，sudo apt update， sudo apt upgrade，更新一下系统</p><p>之后卸载软件环节</p><p>如果你不喜欢firefox浏览器，请打开firefox浏览器下载，其他浏览器，之后执行sudo apt remove –purge firefox*</p><p>之后进入用户名目录，找到.mozilla 或者.firefox删除，具体我忘了，反正是看到这俩文件，如果有，那指定是！</p><p>不喜欢libreoffice，</p><p>sudo apt remove –purge libreoffice*</p><p>安装你喜欢的浏览器，这个已经说过了，你们下载好自己喜欢的浏览器的deb安装就可以了，点击一下，就会出现安装界面！</p><p>安装好后，用你安装的浏览器下载星火应用商店</p><p>用户必备神器</p><p><a href="https://spark-app.store/download">https://spark-app.store/download</a></p><p>下载好后，进入下载目录，把其他deb文件移动或者删除，之后执行sudo apt install .&#x2F;*.deb</p><p>安装好星火后，如果没有出现图标，请注销或者重启</p><p>之后补齐deepin-wine</p><p>sudo aptss install deepin-wine deepin-wine5 deepin-wine6-stable spark-wine7-devel</p><p>就可以使用咱们的星火，安装什么软件自己决定，linux版本的qq，微信，wine微信，wineqq</p><p>还有酷狗音乐wine，网易云音乐linux</p><p>网易云音乐linux，托盘无法退出，托盘点击不了，（xfce桌面的锅）请选择关闭应用就关闭音乐</p><p>平时就最小化，网易云音乐，</p><p>其他应用正常，具体没有仔细测试！</p><p>爱思助手暂时不行，因为依赖问题，本人测试，需要爱思助手用vmbox</p><p>具体安装vmbox</p><p>安装deb后，安装组件包，这个组件包就是增强包，安装好后</p><p>进入终端执行命令，提醒把命令里面的shnb换成你自己的用户名（通用）注:通用为debian系该命令，安装vmbox通用，或者其他软件安装通用！</p><p>1 sudo groupadd usbfs</p><p>2 sudo adduser shnb vboxusers</p><p>3 sudo adduser shnb usbfs</p><p>之后重启，安装虚拟机精简版windows在虚拟机，这个具体自行百度！</p><p>关于想用安卓系统</p><p>麟卓安卓模拟器请上官网下载</p><p>通用</p><p>下载，下来解压之后，之后改名1.run</p><p>.&#x2F;1.run</p><p>安装好后，重启才生效！</p><p>想用wine游戏助手，进wine游戏助手官网，有详细教程，可以安装好，之后其他按照教程就可以了，官网都有写！</p><p>关于清理软件，linux上面很多，选择自己喜欢的，注意有些数据啥的，别误清理，具体知道好用的清理软件的请评论一个推荐，谢谢！</p><p>关于卸载多余linux内核</p><p>通用</p><p>查看使用的内核版本</p><p>uname -a</p><p>查看所有内核版本</p><p>dpkg –get-selections | grep linux</p><p>之后，找到你没有使用的内核版本</p><p>卸载命令 sudo apt remove -purge linux-headers-4.15.0-39 linux-headers-4.15.0-39-generic linux-image-4.15.0-39-generic linux-modules-4.15.0-39-generic linux-modules-extra-4.15.0-39-generic</p><p>将里面内核版本号改为多余内核版本号，关于这个你们如果不放心，可以自己在终端复制粘贴，多余内核名称，执行sudo apt remove –purge</p><p>复制的内核版本，一个一个复制，如上面命令一样，之后执行，就可以了</p><p>重新检查内核</p><p>dpkg –get-selections | grep linux</p><p>会发现没有多余内核了，解释:为什么卸载多余内核，系统在更新时候升级内核，但是旧内核会保存占用系统空间，如果系统可以正常启动新内核，把旧的多余的内核卸载，可以避免系统占用！</p><p>以上就是这些，感谢大家支持！</p>]]></content>
+    
+    
+    <summary type="html">有人说老年机建议使用什么系统呢？
+我的建议linux mint xfce
+
+为什么不是deepin（卡顿不适合老爷机，dde对老爷机优化不是很好！），为什么不是其他系统（太复杂了），我昨天晚上借了台ddr2电脑，具体配置我忘了，amd双核处理器，gt9600显卡，七彩虹主板，硬盘是固态硬盘（老爷机升级个固态硬盘很有必要），内存4gb（2gb内存的老爷机升级一下内存才20多块钱，4gb基本够日用了！），我找了，附近57岁老人试了（岁数太大的不会用电脑，那个电脑就是他的！）
+
+开始咱们的安装教程（省流小提示，不懂安装的看，大佬请划走）
+
+制作启动盘，拿一个u盘，下载ventoy，也可以直接刻录进u</summary>
+    
+    
+    
+    <category term="系统" scheme="https://linux-qitong.github.io/categories/%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="老爷机" scheme="https://linux-qitong.github.io/tags/%E8%80%81%E7%88%B7%E6%9C%BA/"/>
+    
+    <category term="linux mint" scheme="https://linux-qitong.github.io/tags/linux-mint/"/>
+    
+  </entry>
+  
+</feed>
