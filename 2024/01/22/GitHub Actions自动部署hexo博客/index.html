@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>GitHub Actions自动部署hexo博客 | 青稚的空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="青稚的空间" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">青稚的空间</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">等待的不仅仅是未来，还有希望…</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-GitHub Actions自动部署hexo博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      GitHub Actions自动部署hexo博客
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-01-22T04:23:11.000Z" itemprop="datePublished">2024年01月22日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/%E8%BD%AF%E4%BB%B6/">软件</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2024/01/22/GitHub%20Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2hexo%E5%8D%9A%E5%AE%A2/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+      <i id="changyan_count_unit" data-xid="/2024/01/22/GitHub%20Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2hexo%E5%8D%9A%E5%AE%A2/"></i>
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>首先电脑部署生成hexo博客，<a href="https://linux-qitong.gitee.io/2024/01/05/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2%E5%92%8C%E5%AE%89%E8%A3%85npm/#more">参考安装npm和搭建hexo博客</a>。</p>
+<h2 id="开始教程"><a href="#开始教程" class="headerlink" title="开始教程"></a>开始教程</h2><p>前提<br>node.js环境和git都已安装且hexo可以正常运行与部署。<br>注意文章里面的master是仓库分支名，根据自身情况修改main或其他分支名。<br>1.改_config.yml 文件中的deploy为如下内容：</p>
+<figure class="highlight yml"><figcaption><span>根_config.yml</span><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration.html">_config.yml</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:用户名/Pages仓库名.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span>  </span><br></pre></td></tr></table></figure>
+
+<p>生成key，github部署时需要：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;Hexo Deploy Key&quot;</span> -f github-deploy-key -N <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>会在当前目录生成：<br>github-deploy-key —— 私钥<br>github-deploy-key.pub —— 公钥<br>新建一个博客仓库存放hexo源文件，把博客文件放到里面，之后设置博客代码仓库 Settings -&gt; secrets and variables-&gt;Repository secrets<br>名字填写：<br>HEXO_DEPLOY_KEY （大写）<br>后面Actions会用到不要写错哦！<br>填入 github-deploy-key(私钥)里面的内容。<br>公钥放到Pages对应的代码仓库里面。<br>访问pages对应的代码仓库 Settings -&gt; Deploy keys-&gt;Add deploy key<br>名字：HEXO_DEPLOY_PUB（ 可自定义）<br>在 Key 填入 github-deploy-key.pub（公钥）中的内容，别忘了Allow write access 勾上。<br>在博客代码仓库里点Actions<br>然后创建一个新文件.github&#x2F;workflows&#x2F;xxx.yml（xxx名字可自取）<br>内容如下：</p>
+<figure class="highlight yml"><figcaption><span>.github/workflows/xxx.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Hexo</span> <span class="string">Deploy</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line"></span><br><span class="line">   <span class="attr">workflow_dispatch:</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">if:</span> <span class="string">github.event.repository.owner.id</span> <span class="string">==</span> <span class="string">github.event.sender.id</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">source</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line"></span><br><span class="line">          <span class="attr">ref:</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line"></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&#x27;20&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Hexo</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line"></span><br><span class="line">          <span class="attr">ACTION_DEPLOY_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.HEXO_DEPLOY_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"></span><br><span class="line">          <span class="string">sudo</span> <span class="string">timedatectl</span> <span class="string">set-timezone</span> <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line"></span><br><span class="line">          <span class="string">mkdir</span> <span class="string">-p</span> <span class="string">~/.ssh/</span></span><br><span class="line"></span><br><span class="line">          <span class="string">echo</span> <span class="string">&quot;$ACTION_DEPLOY_KEY&quot;</span> <span class="string">&gt;</span> <span class="string">~/.ssh/id_rsa</span></span><br><span class="line"></span><br><span class="line">          <span class="string">chmod</span> <span class="number">700</span> <span class="string">~/.ssh</span></span><br><span class="line"></span><br><span class="line">          <span class="string">chmod</span> <span class="number">600</span> <span class="string">~/.ssh/id_rsa</span></span><br><span class="line"></span><br><span class="line">          <span class="string">ssh-keyscan</span> <span class="string">github.com</span> <span class="string">&gt;&gt;</span> <span class="string">~/.ssh/known_hosts</span></span><br><span class="line"></span><br><span class="line">          <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">&quot;改成你的邮箱&quot;</span></span><br><span class="line"></span><br><span class="line">          <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">&quot;改成你的用户名&quot;</span></span><br><span class="line"></span><br><span class="line">          <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="string">-g</span></span><br><span class="line"></span><br><span class="line">          <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"></span><br><span class="line">          <span class="string">hexo</span> <span class="string">clean</span></span><br><span class="line"></span><br><span class="line">          <span class="string">hexo</span> <span class="string">deploy</span></span><br><span class="line">           </span><br></pre></td></tr></table></figure>
+
+<p>其中：node-version: ‘20’，指nodejs版本。<br>master指分支，个人建议新建好仓库给main分支改名为master<br>结尾：别忘了给主题目录里面的.git目录删除，防止git推送失败。<br>git上传博客文件到github,这个懂得都懂，这里不讲解了。<br>这么做以后只需要上传.md文件，再手动点击Actions（Actions会自动在Actions内生成public目录，并把里面的全部文件上传到Pages仓库），舒适。</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E6%95%99%E7%A8%8B"><span class="toc-text">开始教程</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://Linux-qitong.gitee.io/2024/01/22/GitHub Actions自动部署hexo博客/">https://Linux-qitong.gitee.io/2024/01/22/GitHub Actions自动部署hexo博客/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/%E6%A0%87%E7%AD%BE/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2024/01/21/linux%E5%89%8D%E7%BD%AE%E9%9F%B3%E9%A2%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          linux前置音频
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/03/09/%E6%A0%A1%E5%9B%AD%E6%97%A5%E5%B8%B8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          校园日常
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+  <div id="comments"><div id="SOHUCS" sid="2024/01/22/GitHub Actions自动部署hexo博客/"></div></div>
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/09/%E6%A0%A1%E5%9B%AD%E6%97%A5%E5%B8%B8/">校园日常</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/22/GitHub%20Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2hexo%E5%8D%9A%E5%AE%A2/">GitHub Actions自动部署hexo博客</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/21/linux%E5%89%8D%E7%BD%AE%E9%9F%B3%E9%A2%91/">linux前置音频</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/05/%E5%9D%9B%E5%8F%8B%E5%92%8C%E5%AE%98%E6%96%B9%E7%9A%84%E8%82%AF%E5%AE%9A/">坛友和官方的肯定</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/05/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2%E5%92%8C%E5%AE%89%E8%A3%85npm/">搭建hexo博客和安装npm</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/%E6%A0%87%E7%AD%BE/linux-mint/" style="font-size: 10px;">linux mint</a> <a href="/%E6%A0%87%E7%AD%BE/%E6%95%99%E7%A8%8B/" style="font-size: 20px;">教程</a> <a href="/%E6%A0%87%E7%AD%BE/%E6%A0%A1%E5%9B%AD/" style="font-size: 10px;">校园</a> <a href="/%E6%A0%87%E7%AD%BE/%E7%BA%AA%E5%BF%B5/" style="font-size: 16.67px;">纪念</a> <a href="/%E6%A0%87%E7%AD%BE/%E8%80%81%E7%88%B7%E6%9C%BA/" style="font-size: 10px;">老爷机</a> <a href="/%E6%A0%87%E7%AD%BE/%E8%BD%AF%E4%BB%B6/" style="font-size: 13.33px;">软件</a> <a href="/%E6%A0%87%E7%AD%BE/%E9%A9%B1%E5%8A%A8/" style="font-size: 10px;">驱动</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%B3%BB%E7%BB%9F/">系统</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AF%E4%BB%B6/">软件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/%E6%A0%87%E7%AD%BE/linux-mint/" rel="tag">linux mint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/%E6%A0%87%E7%AD%BE/%E6%95%99%E7%A8%8B/" rel="tag">教程</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/%E6%A0%87%E7%AD%BE/%E6%A0%A1%E5%9B%AD/" rel="tag">校园</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/%E6%A0%87%E7%AD%BE/%E7%BA%AA%E5%BF%B5/" rel="tag">纪念</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/%E6%A0%87%E7%AD%BE/%E8%80%81%E7%88%B7%E6%9C%BA/" rel="tag">老爷机</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/%E6%A0%87%E7%AD%BE/%E8%BD%AF%E4%BB%B6/" rel="tag">软件</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/%E6%A0%87%E7%AD%BE/%E9%A9%B1%E5%8A%A8/" rel="tag">驱动</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://bbs.deepin.org/user/292516">深度论坛</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=EN4zEWnFpbYeOdl_tbq-1cQr8Mlo7pJh&authKey=63jTM47UgpJSNumZsKPgzrZtdHhWoWFjUGxv61HYbKTyLgojP0qen%2FHexNQvx%2Fy9&noverify=0&group_code=691210147">00后综合群</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=kIlta-bJNArnN73RI1Ea-YXCQzqawzGr&authKey=GwoM7oUeyHlOp9fxdiFIBA4XDZta7ccuFZLmVjp67UweKtJvcjgCMCQafiiYr2Jh&noverify=0&group_code=552152860">lingmoOS交流群</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://github.com/gfdgd-xi/">gfdgd-xi的代码空间</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://aninana.github.io/">奈奈的世界</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://hanzn-zzx.gitlab.io/">hanzn-zzx的博客</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 青稚°.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <script>
+      window._config = { showScore: true };
+      (function(){
+        var appid = 'cywFiGzWI';
+        var conf = 'e528efea36a85a8366e9098d9548008e';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        var nodes =document.getElementsByTagName("head")[0]||document.head||document.documentElement;
+        if (/(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent) && width < 750) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+        }
+        else {
+          var loadJs=function(d,a){
+            var b=document.createElement("script");b.setAttribute("type","text/javascript");
+            b.setAttribute("charset","UTF-8");
+            b.setAttribute("src",d);
+            if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}
+            nodes.appendChild(b)
+          };
+          loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+        }
+        var loadCss = function(cssString){
+          var style=document.createElement("style");
+          style.setAttribute("type", "text/css");
+          if(style.styleSheet){// IE
+              style.styleSheet.cssText = cssString;
+          } else {// w3c
+              var cssText = document.createTextNode(cssString);
+              style.appendChild(cssText);
+          }
+          nodes.appendChild(style);
+        }
+      })();
+      function removeElement(_element){
+          var _parentElement = _element.parentNode;
+          if(_parentElement){
+                  _parentElement.removeChild(_element);
+          }
+      }
+      var removeAD = document.createElement("div");
+      removeAD.id = 'removeAD';
+      var adInterval1 = setInterval(function() {
+        if(document.querySelector("#feedAv")){
+          document.querySelector("[node-type=cmt-list]").appendChild(removeAD);
+          document.querySelector("#removeAD").appendChild(document.querySelector("#feedAv"));
+          //- removeElement(document.querySelectorAll("#feedAv")[0]);
+          var feedAv = document.querySelector("#feedAv").children;
+          for( item of feedAv){
+            item.style.display = 'none'
+          }
+          document.querySelector("#removeAD").style.display="none"
+          clearInterval(adInterval1);
+        }
+      },1000);
+      var adInterval2 = setInterval(function() {
+        if(document.querySelector("#pop_ad")){
+          removeElement(document.querySelector("#pop_ad"));
+          clearInterval(adInterval2);
+        }
+      }, 1000);
+    </script>
+    
+<script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+  
+  
+
+
+
+
+
+</body>
+</html>
