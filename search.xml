@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>GitHub Actions自动部署hexo博客</title>
+    <url>/posts/fd2f879b.html</url>
+    <content><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>首先电脑部署生成hexo博客，<a href="https://blog.linux-qitong.top/posts/1b32c63.html">参考安装npm和搭建hexo博客</a>。</p>
+<h2 id="开始教程"><a href="#开始教程" class="headerlink" title="开始教程"></a>开始教程</h2><p>前提<br>node.js环境和git都已安装且hexo可以正常运行与部署。<br>注意文章里面的master是仓库分支名，根据自身情况修改main或其他分支名。<span id="more"></span><br>1.改根<a href="https://hexo.io/zh-cn/docs/configuration.html">_config.yml</a> 文件中的deploy为如下内容：</p>
+<figure class="highlight yml"><figcaption><span>根_config.yml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:用户名/Pages仓库名.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span>  </span><br></pre></td></tr></table></figure>
+
+<p>生成key，github部署时需要：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;Hexo Deploy Key&quot;</span> -f github-deploy-key -N <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>会在当前目录生成：<br>github-deploy-key —— 私钥<br>github-deploy-key.pub —— 公钥<br>新建一个博客仓库存放hexo源文件，把博客文件放到里面，之后设置博客代码仓库 Settings -&gt; secrets and variables-&gt;Repository secrets<br>名字填写：<br>HEXO_DEPLOY_KEY （大写）<br>后面Actions会用到不要写错哦！<br>填入 github-deploy-key(私钥)里面的内容。<br>公钥放到Pages对应的代码仓库里面。<br>访问pages对应的代码仓库 Settings -&gt; Deploy keys-&gt;Add deploy key<br>名字：HEXO_DEPLOY_PUB（ 可自定义）<br>在 Key 填入 github-deploy-key.pub（公钥）中的内容，别忘了Allow write access 勾上。<br>在博客代码仓库里点Actions<br>然后创建一个新文件.github&#x2F;workflows&#x2F;xxx.yml（xxx名字可自取）<br>内容如下：</p>
+<figure class="highlight yml"><figcaption><span>xxx.yml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Hexo</span> <span class="string">Deploy</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line"></span><br><span class="line">   <span class="attr">workflow_dispatch:</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">if:</span> <span class="string">github.event.repository.owner.id</span> <span class="string">==</span> <span class="string">github.event.sender.id</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">source</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line"></span><br><span class="line">          <span class="attr">ref:</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line"></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&#x27;20&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Hexo</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line"></span><br><span class="line">          <span class="attr">ACTION_DEPLOY_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.HEXO_DEPLOY_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"></span><br><span class="line">          <span class="string">sudo</span> <span class="string">timedatectl</span> <span class="string">set-timezone</span> <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line"></span><br><span class="line">          <span class="string">mkdir</span> <span class="string">-p</span> <span class="string">~/.ssh/</span></span><br><span class="line"></span><br><span class="line">          <span class="string">echo</span> <span class="string">&quot;$ACTION_DEPLOY_KEY&quot;</span> <span class="string">&gt;</span> <span class="string">~/.ssh/id_rsa</span></span><br><span class="line"></span><br><span class="line">          <span class="string">chmod</span> <span class="number">700</span> <span class="string">~/.ssh</span></span><br><span class="line"></span><br><span class="line">          <span class="string">chmod</span> <span class="number">600</span> <span class="string">~/.ssh/id_rsa</span></span><br><span class="line"></span><br><span class="line">          <span class="string">ssh-keyscan</span> <span class="string">github.com</span> <span class="string">&gt;&gt;</span> <span class="string">~/.ssh/known_hosts</span></span><br><span class="line"></span><br><span class="line">          <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">&quot;改成你的邮箱&quot;</span></span><br><span class="line"></span><br><span class="line">          <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">&quot;改成你的用户名&quot;</span></span><br><span class="line"></span><br><span class="line">          <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="string">-g</span></span><br><span class="line"></span><br><span class="line">          <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"></span><br><span class="line">          <span class="string">hexo</span> <span class="string">clean</span></span><br><span class="line"></span><br><span class="line">          <span class="string">hexo</span> <span class="string">deploy</span></span><br><span class="line">           </span><br></pre></td></tr></table></figure>
+
+<p>其中：node-version: ‘20’，指nodejs版本。<br>master指分支，个人建议新建好仓库给main分支改名为master<br>结尾：别忘了给主题目录里面的.git目录删除，防止git推送失败。<br>git上传博客文件到github,这个懂得都懂，这里不讲解了。<br>这么做以后只需要上传.md文件，再手动点击Actions（Actions会自动在Actions内生成public目录，并把里面的全部文件上传到Pages仓库），舒适。</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>deepin合集</title>
+    <url>/posts/2d7d86b5.html</url>
+    <content><![CDATA[<p>这是一个展示视频的帖子，从这里能看出本人对深度的热爱，deepin加油！</p>
+<p>树叶deepin</p>
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1tL411d76G&page=1" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+
+<p>deepinV23修改vivo</p>
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1z24y1n7ft&page=1" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+
+<p>更多内容请去bilibili以获取最佳体验。<span id="more"></span></p>
+]]></content>
+      <categories>
+        <category>日常</category>
+      </categories>
+      <tags>
+        <tag>纪念</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux内核合集</title>
+    <url>/posts/dad498b9.html</url>
+    <content><![CDATA[<p>由本人编译的debian系内核<br>siyu内核的(思宇)寓意:<br>思宇是一个极富诗意的名字，“思”字代表了美好的怀念和回忆，而“宇”字则意味着广阔和空间。<span id="more"></span><br>“思宇”对于那些美好记忆的留恋与回忆，并且向着更加广阔的未来和空间勇敢前进。<br>每个内核的体验效果不同<br>下载链接在评论区了（实时更新）</p>
+]]></content>
+      <categories>
+        <category>系统</category>
+      </categories>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux前置音频</title>
+    <url>/posts/f1df95b1.html</url>
+    <content><![CDATA[<p>相信有很多坛友遇到linux前置音频不好使的问题。<br>话不多说，开始教程。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>首先安装hdajackretask<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install alsa-tools-gui</span><br></pre></td></tr></table></figure>
+<p>安装好后运行<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> hdajackretask</span><br></pre></td></tr></table></figure>
+<p>启动之后，勾选Show unconnected pins和Advanced override<br>在左边的界面找到前置耳机孔和麦克风孔。<span id="more"></span></p>
+<h1 id="补充（来自忘记、过去）"><a href="#补充（来自忘记、过去）" class="headerlink" title="补充（来自忘记、过去）"></a>补充（来自忘记、过去）</h1><p><a href="https://blog.daliansky.net/Use-AppleALC-sound-card-to-drive-the-correct-posture-of-AppleHDA.html">使用AppleALC声卡仿冒驱动AppleHDA的正确姿势</a>，<br>（里面使用 Ubuntu 提取的声卡 codec 部分还是很有用的，可以很方便的判断哪个节点在实际使用中）</p>
+<h1 id="下文"><a href="#下文" class="headerlink" title="下文"></a>下文</h1><p>一般是pin ID:0x19是麦克风<br>0x1b是前置耳机孔。(调整这两个就正常了)<br>勾选上述的0x19和0x1b<br>注意:jack detection设置为not present<br>最后勾选override，再点击右下角的install boot override。<br>重启测试，功能正常。<br>第二个方法(不推荐，重启，睡眠后得重新设置)<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install pavucontrol</span><br></pre></td></tr></table></figure>
+<p>之后打开，进入配置，设置侧写为模拟立体声双工。<br>这个方法比较简单哈。</p>
+]]></content>
+      <categories>
+        <category>系统</category>
+      </categories>
+      <tags>
+        <tag>驱动</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于老爷机使用系统</title>
+    <url>/posts/1131c5be.html</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>有人说老年机建议使用什么系统呢？<br>我的建议linux mint xfce</p>
+<p>为什么不是deepin（卡顿不适合老爷机，dde对老爷机优化不是很好！），为什么不是其他系统（太复杂了），我昨天晚上借了台ddr2电脑，具体配置我忘了，amd双核处理器，gt9600显卡，七彩虹主板，硬盘是固态硬盘（老爷机升级个固态硬盘很有必要），2gb内存的老爷机，升级一下了一下内存，4gb基本够日用了。<span id="more"></span></p>
+<p>开始咱们的安装教程（省流小提示，大佬请划走）。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>制作启动盘，拿一个u盘，下载ventoy，也可以直接刻录进u盘，<a href="https://www.ventoy.net/cn/">优先推荐ventoy</a></p>
+<p>之后下载<a href="https://linuxmint.com/download.php">linux mint xfce</a></p>
+<p>当您从 U 盘（或 DVD）启动计算机时，Linux Mint 会启动 .它会在用户被调用时自动登录，并向您显示带有安装程序的桌面，点install linux mint。</p>
+<p>选择语言，连接网络（可忽略这个步骤，不建议忽略）（无线网络，有线网络忽略该步骤），选择安装多媒体解码器（联网后安装选择），设置时区为上海，设置用户名，根据自己想起的用户名设置，等待安装结束，安装结束重启，进入系统，找到软件源设置，换源，驱动管理器，安装驱动NVIDIA闭源驱动（仅限于NVIDIA显卡）！</p>
+<p>以肉桂桌面为例子寻找，除了桌面环境不同其他的都一样，找到这两个软件就可以了！</p>
+<p>安装NVIDIA打开驱动管理器，选择安装即可。</p>
+<p>打开终端输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update &amp;&amp; <span class="built_in">sudo</span> apt upgrade</span><br><span class="line"><span class="comment"># 更新一下系统</span></span><br></pre></td></tr></table></figure>
+
+<p>卸载软件环节</p>
+<p>如果你不喜欢firefox浏览器，请打开firefox浏览器下载，其他浏览器，之后执行：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt remove --purge firefox*</span><br></pre></td></tr></table></figure>
+<p>之后进入用户名目录，找到.mozilla删除（没有则不用）</p>
+<p>不喜欢libreoffice<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt remove --purge libreoffice*</span><br></pre></td></tr></table></figure>
+
+<p>安装你喜欢的浏览器，这个已经说过了，你们下载好自己喜欢的浏览器的deb安装就可以了，点击一下，就会出现安装界面！</p>
+<p>安装好后，用你安装的浏览器下载<a href="https://www.spark-app.store/">星火应用商店</a></p>
+<p>下载好后，进入下载目录，把其他deb文件移动或者删除<br>之后输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ./*.deb</span><br></pre></td></tr></table></figure>
+
+<p>安装好星火后，如果没有出现图标，请注销或者重启。</p>
+<p>咱们就可以从里面安装喜欢的软件了。</p>
+<p>网易云音乐linux，托盘无法退出，托盘点击不了，（xfce桌面的锅）请选择关闭应用就关闭音乐</p>
+<p>平时就最小化，网易云音乐。</p>
+<p>其他应用正常，具体没有仔细测试！</p>
+<p>爱思助手暂时不行，因为依赖问题，本人测试，需要爱思助手用vbox</p>
+<p>具体安装vmbox</p>
+<p>安装deb后，安装组件包，这个组件包就是增强包，安装好后</p>
+<p>进入终端输入命令，提醒把命令里面的shnb换成你自己的用户名（通用）注:通用为debian系该命令，安装vmbox通用，或者其他软件安装通用！<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> groupadd usbfs</span><br><span class="line"><span class="built_in">sudo</span> adduser shnb vboxusers</span><br><span class="line"><span class="built_in">sudo</span> adduser shnb usbfs</span><br></pre></td></tr></table></figure>
+<p>之后重启，安装虚拟机精简版windows在虚拟机，这个具体自行百度！</p>
+<p>关于想用安卓系统</p>
+<p>麟卓安卓模拟器请上官网下载</p>
+<p>通用</p>
+<p>下载，下来解压之后，之后改名1.run</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">./1.run</span><br></pre></td></tr></table></figure>
+
+<p>安装好后，重启才生效！</p>
+<p>想用wine游戏助手，进wine游戏助手官网，有详细教程，可以安装好，之后其他按照教程就可以了，官网都有写！</p>
+<p>关于清理软件，linux上面很多，选择自己喜欢的，注意有些数据啥的，别误清理，具体知道好用的清理软件的请评论一个推荐，谢谢！</p>
+<p>关于卸载多余linux内核</p>
+<p>通用</p>
+<p>查看使用的内核版本<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br></pre></td></tr></table></figure>
+
+<p>查看所有内核版本<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">dpkg --get-selections | grep linux</span><br></pre></td></tr></table></figure>
+
+<p>之后，找到你没有使用的内核版本<br>卸载命令输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt purge linux-headers-4.15.0-39 linux-headers-4.15.0-39-generic linux-image-4.15.0-39-generic linux-modules-4.15.0-39-generic linux-modules-extra-4.15.0-39-generic</span><br><span class="line"><span class="comment"># 将里面内核版本号改为多余内核版本号，也可以自己在终端复制粘贴，多余内核名称</span></span><br></pre></td></tr></table></figure>
+
+
+<p>重新检查内核<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">dpkg --get-selections | grep linux</span><br></pre></td></tr></table></figure>
+
+<p>会发现没有多余内核了，解释:为什么卸载多余内核，系统在更新时候升级内核，但是旧内核会保存占用系统空间，如果系统可以正常启动新内核，把旧的多余的内核卸载，可以避免系统占用！</p>
+<p>以上就是这些，感谢大家支持！</p>
+]]></content>
+      <categories>
+        <category>系统</category>
+      </categories>
+      <tags>
+        <tag>老爷机</tag>
+        <tag>linux mint</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>坛友和官方的肯定</title>
+    <url>/posts/da60ea1f.html</url>
+    <content><![CDATA[<p>这里是讲,当上版主离不开大家的支持。</p>
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1Zk4y1J7uU&page=1" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+
+<p><a href="https://bbs.deepin.org/post/263334">https://bbs.deepin.org/post/263334</a></p>
+<p><img src="https://storage.deepin.org/thread/202308301523115289_Screenshot_20230830_152131.jpg" alt="坛友支持"></p>
+<p>内核肯定<br><a href="https://bbs.deepin.org/post/259464">https://bbs.deepin.org/post/259464</a><br>用户量最高的主题<br><a href="https://bbs.deepin.org/post/257205">https://bbs.deepin.org/post/257205</a><span id="more"></span></p>
+]]></content>
+      <categories>
+        <category>日常</category>
+      </categories>
+      <tags>
+        <tag>纪念</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搭建hexo博客和安装npm</title>
+    <url>/posts/1b32c63.html</url>
+    <content><![CDATA[<p>这里以npm为例，具体安装请看下文。</p>
+<p>打开<a href="https://deb.nodesource.com/">deb.nodejs</a>，根据里面的命令添加源。</p>
+<p>NodeSource源被启用后，输入命令:</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install nodejs</span><br></pre></td></tr></table></figure>
+<p>nodejs包含node和npm二进制包。</p>
+<p>验证是否正确安装</p>
+<p>验证node:</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">node --version</span><br></pre></td></tr></table></figure>
+
+<p>验证npm:</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">npm --version</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>如果需要从npm编译本地扩展，安装开发工具<br>输入</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install build-essential</span><br></pre></td></tr></table></figure>
+
+
+<p>安装好npm别着急。</p>
+<p>换成淘宝源提高下载速度<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmmirror.com</span><br><span class="line"><span class="built_in">sudo</span> npm config <span class="built_in">set</span> registry https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
+
+<p>还原命令<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmjs.org/</span><br><span class="line"><span class="built_in">sudo</span> npm config <span class="built_in">set</span> registry https://registry.npmjs.org/</span><br></pre></td></tr></table></figure>
+<p>测试是否成功<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">npm config get registry</span><br><span class="line"><span class="built_in">sudo</span> npm config get registry</span><br></pre></td></tr></table></figure>
+<p>好了，咱们开始安装hexo。</p>
+<p>安装途中如果提示npm更新执行命令<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> npm install npm@latest -g</span><br></pre></td></tr></table></figure>
+<p>hexo安装命令<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>如果博客主题过旧，可安装历史版本的hexo, 进入博客目录<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">npm install --save hexo@需要的版本</span><br><span class="line">npm view hexo versions --json</span><br><span class="line"><span class="comment"># 查询包历史版本，hexo替换为想要查询的npm包名称</span></span><br><span class="line">安装好hexo后开始生成配置目录（不加<span class="built_in">sudo</span>）</span><br></pre></td></tr></table></figure>
+<p>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></figure>
+<p>进入themes目录删除自带主题</p>
+<p>之后进入hexo主题页</p>
+<p><a href="https://hexo.io/themes/">https://hexo.io/themes/</a></p>
+<p>找到适合自己的主题（本文以为例Vateral）</p>
+<p>进入_config.yml将 theme: Vateral（改成你选择的主题）</p>
+<p>项目内的本地搜索安装（不加sudo）<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">npm i -S hexo-generator-search</span><br></pre></td></tr></table></figure>
+<p>在主题文件的_config.yml中添加</p>
+<figure class="highlight yml"><figcaption><span>主题_config.yml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">search:</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">search.xml</span></span><br><span class="line"><span class="attr">field:</span> <span class="string">all</span></span><br></pre></td></tr></table></figure>
+<p>剩下的参考项目</p>
+<p><a href="https://github.com/moumao/hexo-theme-Vateral">https://github.com/moumao/hexo-theme-Vateral</a></p>
+<p>注意项目没说修改哪个_config.yml</p>
+<p>一律修改Vateral目录的_config.yml</p>
+<p>而不是blog目录里面_config.yml</p>
+<p>搭建仓库github或者gitee,建立和用户名相同的仓库</p>
+<p>开启pages</p>
+<p>修改根目录的_config.yml里面的</p>
+<figure class="highlight yml"><figcaption><span>根_config.yml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">url:</span></span><br><span class="line"></span><br><span class="line"><span class="string">修改为：url:https://你的用户名.github（或gitee，根据你使用的平台）.io</span></span><br></pre></td></tr></table></figure>
+
+<p>清理输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<p>开始生成配置文件（生成前写文章）<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<p>本地预览<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>之后上传public目录里面的全部文件到仓库，进入开启pages页面，更新pages并开启强制https，就搭建好博客了。</p>
+<p>注意每次写一个文章都要输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<p>至于hexo s是本地预览，最好预览下，看看有没有错误。</p>
+<p>如何创建文章呢？<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">hexo new 标题</span><br></pre></td></tr></table></figure>
+
+<p>关于界面创建<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">hexo new page <span class="string">&quot;about&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>开始简单文章写法（坛友可以自己搜索，或者参考下面链接）</p>
+<p><a href="https://cloud.tencent.com/developer/beta/article/1662733">https://cloud.tencent.com/developer/beta/article/1662733</a></p>
+<p>以上就是这些，感谢大家支持。</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>校园日常</title>
+    <url>/posts/d0ac8280.html</url>
+    <content><![CDATA[<p>纪念我在校园和童鞋，老师们的互动瞬间。<br>关于曾经的班主任：<br>她对我非常好，也生过我气，和我闹过小情绪。<br>长相方面：长得年轻，娇小可爱，就是不会拍照，给自己拍的比较丑。<span id="more"></span><br>其他班的朋友曾和我说，以为她是其他班的女学生。<br>她很柔弱，会闹小情绪，还有一点点爱哭。<br>她的宝宝(小外甥)也很可爱，主动帮助我拿假条，软软的声音问我，这个是假条嘛？</p>
+<p>校园互动瞬间</p>
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1UD42177Wv&page=1" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+
+<p>2024年3月25日<br>因为特殊原因，我转到了新的班级，她现在是我的任课老师。<br>她的恩情，我会永远铭记于心的。<br>姐姐，谢谢您陪伴我一学期的时光，我会和新的班主任好好相处的！</p>
+]]></content>
+      <categories>
+        <category>日常</category>
+      </categories>
+      <tags>
+        <tag>纪念</tag>
+        <tag>校园</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>玲珑包</title>
+    <url>/posts/d1c309f6.html</url>
+    <content><![CDATA[<p>我看到有人需要玲珑，所以编译了玲珑包。</p>
+<p>感谢神末shenmo，深度团队，提供代码。</p>
+<p>里面有uos22的玲珑包，uos日后不需要适配了，会集成玲珑。<span id="more"></span></p>
+<p>安装后操作：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">ll-cli repo modify https://repo.linglong.space</span><br></pre></td></tr></table></figure>
+
+<p>如果无效：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">ll-cli repo modify https://mirror-repo-linglong.deepin.com/</span><br></pre></td></tr></table></figure>
+<p>下载链接：<a href="https://gitee.com/Linux-qitong/compile-exquisitely/releases/tag/%E7%8E%B2%E7%8F%91">https://gitee.com/Linux-qitong/compile-exquisitely/releases/tag/%E7%8E%B2%E7%8F%91</a></p>
+]]></content>
+      <categories>
+        <category>系统</category>
+      </categories>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>编译deb内核</title>
+    <url>/posts/15118675.html</url>
+    <content><![CDATA[<h1 id="1-准备"><a href="#1-准备" class="headerlink" title="1.准备"></a>1.准备</h1><h2 id="如果配置高可以考虑Vbox编译，话不多说，开始教程。"><a href="#如果配置高可以考虑Vbox编译，话不多说，开始教程。" class="headerlink" title="如果配置高可以考虑Vbox编译，话不多说，开始教程。"></a>如果配置高可以考虑Vbox编译，话不多说，开始教程。</h2><p>1.开启源码仓库<br>为了可以使用 apt build-dep linux 自动安装编译所需的依赖，需要先为 apt 配置源码仓库</p>
+<p>1.2编辑 &#x2F;etc&#x2F;apt&#x2F;sources.list<span id="more"></span>，有些发行版（如Ubuntu）默认将 deb-src 开头的源码仓库注释掉了，只需要取消注释就可以了；而UOS默认没有源码仓库，所以UOS要编译内核得添加源码仓库：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb-src https://home-packages.chinauos.com/home plum main contrib non-free&quot;</span> &gt;&gt; /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+
+<p>1.3编辑 &#x2F;etc&#x2F;apt&#x2F;sources.list 后<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br></pre></td></tr></table></figure>
+
+<p>1.4安装所需依赖<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt build-dep -y linux </span><br></pre></td></tr></table></figure>
+
+<h1 id="2-开始编译"><a href="#2-开始编译" class="headerlink" title="2.开始编译"></a>2.开始编译</h1><p>2.1浏览器下载内核源码，<br>也可以安装 wget 下载内核源码包<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install -y wget</span><br></pre></td></tr></table></figure>
+
+<p>2.2自动下载编译所需的依赖执行命令<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt build-dep -y linux</span><br></pre></td></tr></table></figure>
+
+<p>2.3下载需要的源码<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.3.1.tar.xz </span><br><span class="line"><span class="comment"># wget下载方式，浏览器下载就不过多描述了</span></span><br></pre></td></tr></table></figure>
+
+<p>2.4解压文件，这里用命令解压（也可以用压缩软件解压）<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">tar -xf linux-6.3.1.tar.xz</span><br></pre></td></tr></table></figure>
+
+<p>2.5进入解压目录，也可以用文件管理打开目录后，打开终端<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> linux-6.3.1/</span><br></pre></td></tr></table></figure>
+
+<p>2.6复制内核配置文件<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> /boot/config-<span class="string">&quot;<span class="subst">$(uname -r)</span>&quot;</span> .config</span><br></pre></td></tr></table></figure>
+<p>2.7编译deb</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line">make deb-pkg -j4 <span class="comment"># 根据自己CPU线程数修改j8，j11等。</span></span><br></pre></td></tr></table></figure>
+<p>注意：<br>Y： 模块驱动编译到内核中，启动时自动加载<br>N： 空格:表示该功能不编译到内核中，即新的内核将不支持该功能<br>M：模块会被编译，但是不会被编译到内核中，只是生成.o文件，我们可以收集这些.o文件做到linux的文件系统中，然后用insmod实现动态加载</p>
+<p>2.8我们只需要 linux-headers 和 linux-image 开头的两个 deb 文件，名字中带有 dbg，是调试内核用的</p>
+<p>2.9双击 deb 文件安装或输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dpkg -i *.deb 安装</span><br></pre></td></tr></table></figure>
+<h1 id="3-补充"><a href="#3-补充" class="headerlink" title="3.补充"></a>3.补充</h1><p>3.1如果遇到缺少git仓库，在编译内核目录<br>输入以下命令：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注已有git，则不用安装</span></span><br><span class="line"></span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line">git commit -m <span class="string">&quot;1&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3.2如果编译快完成提示zstd报错，咱们不要慌<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bash</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install zstd</span><br></pre></td></tr></table></figure>
+
+<p>之后重新输入命令编译就可以了，不用担心之前的编译数据丢失。</p>
+<p>3.3论坛建议：</p>
+<p>DebuggerX：<br>1.禁用DEBUG_INFO可以极大减少编译所需的时间和空间，也就是避免生成那个很大的dbg.deb。<br>2.可以利用github action去自动化编译，具体可以参考我的这篇博客<a href="https://www.debuggerx.com/2021/08/17/Using-github-actions-to-build-kernel-deb-packages/">利用 GitHub Actions 自动构建 Linux 内核为 deb 包</a>。</p>
+<p>fuuko：<br>其实配置低也可以用虚拟化环境，把vmbox换成docker就行了，然后拉debian的镜像。</p>
+]]></content>
+      <categories>
+        <category>系统</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重新打包deb</title>
+    <url>/posts/7394d04d.html</url>
+    <content><![CDATA[<h1 id="开始教程"><a href="#开始教程" class="headerlink" title="开始教程"></a>开始教程</h1><p>1.用命令创建好目录结构</p>
+<figure class="highlight bash"><figcaption><span>git bsah</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p newdeb build/DEBIAN</span><br></pre></td></tr></table></figure>
+<p>2.用命令把deb包文件解压</p>
+<figure class="highlight bash"><figcaption><span>git bsah</span></figcaption><table><tr><td class="code"><pre><span class="line">dpkg-deb -x 包名.deb build/</span><br></pre></td></tr></table></figure>
+<p>3.用命令解压配制信息<span id="more"></span></p>
+<figure class="highlight bash"><figcaption><span>git bsah</span></figcaption><table><tr><td class="code"><pre><span class="line">dpkg-deb -e 包名.deb build/DEBIAN/</span><br></pre></td></tr></table></figure>
+<p>4.把build中的文件重新打包到newdeb目录生成新的deb</p>
+<figure class="highlight bash"><figcaption><span>git bsah</span></figcaption><table><tr><td class="code"><pre><span class="line">dpkg-deb -b build newdeb/</span><br></pre></td></tr></table></figure>
+<p>5.小插曲</p>
+<p>我昨日询问了开发者<br><img src="https://storage.deepin.org/thread/202306211030397865_202306191742474292_mmexport1687163238645.jpg" alt="ubuntu的独一无二"><br><img src="https://storage.deepin.org/thread/202306211030529219_IMG_20230621_102749.jpg" alt="神必ubnutu"></p>
+<p>使用github自动编译的deb，由于github环境是ubuntu，而deepin不支持zst的deb，所以需要转换为xz。</p>
+<p>所以请把第四步的命令替换为(deepin下解压，无需替换命令)<br>输入:</p>
+<figure class="highlight bash"><figcaption><span>git bsah</span></figcaption><table><tr><td class="code"><pre><span class="line">dpkg-deb -Z xz -b build/ newdeb/</span><br></pre></td></tr></table></figure>
+
+<p>注意:如果deb包名太长，可以把包改为1.deb之后再解压。</p>
+<p>deepin解压zst格式的deb，请先解压deb，之后根据下面方法进行手动解压，<br>首先安装zstd<br>输入：</p>
+<figure class="highlight bash"><figcaption><span>git bsah</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install zstd</span><br><span class="line"></span><br><span class="line">tar -I zstd -xvf 包名.tar.zst</span><br><span class="line"></span><br><span class="line"><span class="comment"># 之后手动把解压出来的文件，放到build，build/DEBIAN/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>深度评论转载：</p>
+<p>深度之恋：</p>
+<p>data.tar.zst解压后放到，build<br>control.tar.zst解压后放到，build&#x2F;DEBIAN&#x2F;</p>
+<p>忘记 、过去：</p>
+<p>也可以直接输入：</p>
+<figure class="highlight bash"><figcaption><span>git bsah</span></figcaption><table><tr><td class="code"><pre><span class="line">dpkg-deb -R xxx.deb yyy </span><br></pre></td></tr></table></figure>
+
+<p>这样子解压到文件夹里，可以节约时间。<br>如果是 zst 格式的，可以右键用归档管理器打开 deb，然后手动把 data 和 control 两个压缩文件解压出来再重新打包。</p>
+<p>shenmo:</p>
+<p>忘记 、过去说的是用file-roller打开deb。</p>
+]]></content>
+      <categories>
+        <category>系统</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+</search>

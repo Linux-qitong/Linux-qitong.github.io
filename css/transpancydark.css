@@ -1,0 +1,37 @@
+/* 深色模式下的卡片和小部件背景 */
+[data-theme="dark"]
+   #aside-content .card-widget{
+      background: rgba(0, 0, 0, 0.5)!important;
+}
+
+/* 深色模式下阅读模式的卡片和小部件背景，并设置文字颜色 */
+[data-theme="dark"] .read-mode #aside-content .card-widget,
+[data-theme="dark"] .read-mode div#post {
+    background: rgba(0, 0, 0, 0.5)!important;
+    color: #ffffff;
+}
+
+/* 首页文章栏背景透明，同时适配阅读模式和深色模式 */
+[data-theme="dark"] #recent-posts .recent-post-item {
+    background: rgba(0, 0, 0, 0.5)!important;
+}
+
+/* 文章页背景 */
+[data-theme="dark"]
+   div#post{
+    background: rgba(0, 0, 0, 0.5)!important;
+}
+    
+/* page页背景 */
+[data-theme="dark"]
+   div#page{
+    background: rgba(0, 0, 0, 0.5)!important;
+}    
+    
+/* archive页背景 */
+[data-theme="dark"]
+   div#archive{
+    background: rgba(0, 0, 0, 0.5)!important;
+}    
+
+/* 以下代表透明度为0.5 可以自行修改*/

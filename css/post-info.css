@@ -1,0 +1,51 @@
+/* 文章标题 */
+#post-info .post-title {
+  color: var(white);
+  font-weight: 700;
+  font-size: 2.6rem;
+  line-height: 1.2;
+  text-align: center;
+  margin: 1rem 0 1rem 0 !important;
+  -webkit-line-clamp: 2;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  #post-info .post-title {
+    font-size: 1.6rem;
+    -webkit-line-clamp: 3;
+    margin: 0.2rem auto !important;
+    text-align: center;
+    z-index: 1;
+  }
+}
+
+/*信息栏底部圆角*/
+#page-header.post-bg:before {
+  background-color: rgb(0 0 0 / 60%);
+  border-bottom-right-radius: 11px;
+  border-bottom-left-radius: 11px;
+}
+
+#page-header.post-bg {
+  border-bottom-right-radius: 11px;
+  border-bottom-left-radius: 11px;
+}
+
+/* 文章顶部其他信息 */
+#post-meta>div {
+  text-align: center;
+  color:white
+}
+/* 隐藏信息文字 */
+#post-info #post-meta .post-meta-label {
+  display: none;
+}
+/* 图标数字间距 */
+#post-info #post-meta .post-meta-icon {
+  margin-right: 0.3rem;
+}
+/* 每组间距 */
+#post-info #post-meta .post-meta-separator {
+  margin: 0px 0.4rem;
+}

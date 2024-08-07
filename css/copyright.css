@@ -1,0 +1,14 @@
+/*版权卡片美化*/
+#post .post-copyright {
+position: relative;
+margin: 2rem 0 0.5rem;
+padding: 1.5rem 0.8rem;
+border: 8px solid #f6f6f6; /*卡片边框*/
+border-radius: 20px; /*边框圆角*/
+}
+#post .post-copyright:before {
+position: absolute;
+top: -1.9rem; /*C位置*/
+color: #49b1f540; /*C颜色*/
+font-size: 6rem; /*C大小*/
+}

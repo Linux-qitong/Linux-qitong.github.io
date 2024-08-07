@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>坛友和官方的肯定 | 青稚的空间</title><meta name="author" content="青稚°"><meta name="copyright" content="青稚°"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="这里是讲,当上版主离不开大家的支持。   https:&#x2F;&#x2F;bbs.deepin.org&#x2F;post&#x2F;263334  内核肯定https:&#x2F;&#x2F;bbs.deepin.org&#x2F;post&#x2F;259464用户量最高的主题https:&#x2F;&#x2F;bbs.deepin.org&#x2F;post&#x2F;257205">
+<meta property="og:type" content="article">
+<meta property="og:title" content="坛友和官方的肯定">
+<meta property="og:url" content="https://blog.linux-qitong.top/posts/da60ea1f.html">
+<meta property="og:site_name" content="青稚的空间">
+<meta property="og:description" content="这里是讲,当上版主离不开大家的支持。   https:&#x2F;&#x2F;bbs.deepin.org&#x2F;post&#x2F;263334  内核肯定https:&#x2F;&#x2F;bbs.deepin.org&#x2F;post&#x2F;259464用户量最高的主题https:&#x2F;&#x2F;bbs.deepin.org&#x2F;post&#x2F;257205">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.linux-qitong.top/img/thumb/thumb_19.webp">
+<meta property="article:published_time" content="2024-01-05T01:30:10.000Z">
+<meta property="article:modified_time" content="2024-08-07T14:39:01.341Z">
+<meta property="article:author" content="青稚°">
+<meta property="article:tag" content="纪念">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.linux-qitong.top/img/thumb/thumb_19.webp"><link rel="shortcut icon" href="/img/Snowflake.png"><link rel="canonical" href="https://blog.linux-qitong.top/posts/da60ea1f.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = true
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '坛友和官方的肯定',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-08-07 22:39:01'
+}</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/transpancy.css"><link rel="stylesheet" href="/css/transpancydark.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/nav.css"><link rel="stylesheet" href="/css/beauty.css"><link rel="stylesheet" href="/css/post-info.css"><link rel="stylesheet" href="/css/footer.css"><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/button.css"><link rel="stylesheet" href="/css/link.css"><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/copyright.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/rss2.xml" title="青稚的空间" type="application/rss+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/bg.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案馆</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签云</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 开往</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/mood/"><i class="fa-fw fas fa-heart"></i><span> 心情树洞</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-paper-plane"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/thumb/thumb_19.webp);"><nav id="nav"><span id="blog-info"><a href="/" title="青稚的空间"><span class="site-name">青稚的空间</span></a></span><div id="menus"></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案馆</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签云</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 开往</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/mood/"><i class="fa-fw fas fa-heart"></i><span> 心情树洞</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-paper-plane"></i><span> 关于我</span></a></div></div><div id="nav-right"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i></span></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">坛友和官方的肯定</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-05T01:30:10.000Z" title="发表于 2024-01-05 09:30:10">2024-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-07T14:39:01.341Z" title="更新于 2024-08-07 22:39:01">2024-08-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">45</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="坛友和官方的肯定"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>这里是讲,当上版主离不开大家的支持。</p>
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1Zk4y1J7uU&page=1" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+
+<p><a target="_blank" rel="noopener" href="https://bbs.deepin.org/post/263334">https://bbs.deepin.org/post/263334</a></p>
+<p><img src="https://storage.deepin.org/thread/202308301523115289_Screenshot_20230830_152131.jpg" alt="坛友支持"></p>
+<p>内核肯定<br><a target="_blank" rel="noopener" href="https://bbs.deepin.org/post/259464">https://bbs.deepin.org/post/259464</a><br>用户量最高的主题<br><a target="_blank" rel="noopener" href="https://bbs.deepin.org/post/257205">https://bbs.deepin.org/post/257205</a><span id="more"></span></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.linux-qitong.top">青稚°</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.linux-qitong.top/posts/da60ea1f.html">https://blog.linux-qitong.top/posts/da60ea1f.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.linux-qitong.top" target="_blank">青稚的空间</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BA%AA%E5%BF%B5/">纪念</a></div><div class="post-share"><div class="social-share" data-image="/img/thumb/thumb_19.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-left" href="/posts/f1df95b1.html" title="linux前置音频"><img class="cover" src="/img/thumb/thumb_9.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">linux前置音频</div></div></a><a class="next-post pull-right" href="/posts/1b32c63.html" title="搭建hexo博客和安装npm"><img class="cover" src="/img/thumb/thumb_2.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">搭建hexo博客和安装npm</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/posts/2d7d86b5.html" title="deepin合集"><img class="cover" src="/img/thumb/thumb_18.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-21</div><div class="title">deepin合集</div></div></a><a href="/posts/d0ac8280.html" title="校园日常"><img class="cover" src="/img/thumb/thumb_14.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-09</div><div class="title">校园日常</div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">青稚°</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Linux-qitong" target="_blank" title="Github"><i class="fab fa-github" style="color: #A606060;"></i></a><a class="social-icon" href="https://space.bilibili.com/486352915" target="_blank" title="bilibili"><i class="fab fa-bilibili" style="color: #FB7299;"></i></a><a class="social-icon" href="mailto:sweetcandymini@foxmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #00FFFF;"></i></a><a class="social-icon" href="/rss2.xml" target="_blank" title="Rss"><i class="fas fa-rss" style="color: #FF9933;"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/d0ac8280.html" title="校园日常"><img src="/img/thumb/thumb_14.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="校园日常"/></a><div class="content"><a class="title" href="/posts/d0ac8280.html" title="校园日常">校园日常</a><time datetime="2024-03-09T02:01:28.000Z" title="发表于 2024-03-09 10:01:28">2024-03-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/fd2f879b.html" title="GitHub Actions自动部署hexo博客"><img src="/img/thumb/thumb_4.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GitHub Actions自动部署hexo博客"/></a><div class="content"><a class="title" href="/posts/fd2f879b.html" title="GitHub Actions自动部署hexo博客">GitHub Actions自动部署hexo博客</a><time datetime="2024-01-22T04:23:11.000Z" title="发表于 2024-01-22 12:23:11">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f1df95b1.html" title="linux前置音频"><img src="/img/thumb/thumb_9.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux前置音频"/></a><div class="content"><a class="title" href="/posts/f1df95b1.html" title="linux前置音频">linux前置音频</a><time datetime="2024-01-21T06:00:39.000Z" title="发表于 2024-01-21 14:00:39">2024-01-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/da60ea1f.html" title="坛友和官方的肯定"><img src="/img/thumb/thumb_19.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="坛友和官方的肯定"/></a><div class="content"><a class="title" href="/posts/da60ea1f.html" title="坛友和官方的肯定">坛友和官方的肯定</a><time datetime="2024-01-05T01:30:10.000Z" title="发表于 2024-01-05 09:30:10">2024-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1b32c63.html" title="搭建hexo博客和安装npm"><img src="/img/thumb/thumb_2.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="搭建hexo博客和安装npm"/></a><div class="content"><a class="title" href="/posts/1b32c63.html" title="搭建hexo博客和安装npm">搭建hexo博客和安装npm</a><time datetime="2024-01-05T01:23:05.000Z" title="发表于 2024-01-05 09:23:05">2024-01-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By 青稚°</div><div class="footer_custom_text"><a href="https://icp.gov.moe/?keyword=20249989"  style="color:white" target="_blank">萌ICP备20249989号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'Ov23liTVxOXDKRW33JTm',
+      clientSecret: 'f5112259b6f8d7a9f006b39556677cac9375939a',
+      repo: 'gitalk',
+      owner: 'linux-qitong',
+      admin: ['linux-qitong'],
+      id: 'e98d7946c88e655c8231550d9c4236a8',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async src="/js/grayscale.js"></script><script async src="/js/crash_cheat.js"></script><div class="aplayer no-destroy" data-id="7039487815" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+const triggerPjaxFn = (val) => {
+  if (!val) return
+  Object.values(val).forEach(fn => { fn() })
+}
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjaxSendOnce')
+  btf.removeGlobalFnEvent('themeChange')
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  triggerPjaxFn(window.globalFn.pjaxSend)
+})
+
+document.addEventListener('pjax:complete', () => {
+  btf.removeGlobalFnEvent('pjaxCompleteOnce')
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  triggerPjaxFn(window.globalFn.pjaxComplete)
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

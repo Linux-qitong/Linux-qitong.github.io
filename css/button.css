@@ -1,0 +1,47 @@
+/* 右下角按钮的通用样式 */
+#rightside > div > button, #rightside > div > a {
+  display: block;
+  margin-bottom: 6px;
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #f1f1f1; /* 浅色模式背景色 */
+  color: #2d587a;
+  text-align: center;
+  font-size: 16px;
+  line-height: 40px;
+  /* 移除默认的焦点轮廓（可选） */
+  outline: none;
+}
+
+/* 浅色模式下鼠标悬停时的样式 */
+#rightside > div > button:hover, #rightside > div > a:hover {
+  background-color: #add8e6; /* 浅蓝色 */
+  color: #000; /* 黑色文字 */
+}
+
+/* 暗色模式下的样式 */
+[data-theme="dark"] #rightside > div > button, [data-theme="dark"] #rightside > div > a {
+  background-color: #808080; /* 暗色模式背景色 */
+  color: #ffffff; /* 白色文字，确保在暗色背景上清晰可见 */
+}
+
+/* 暗色模式下鼠标悬停时的样式 */
+[data-theme="dark"] #rightside > div > button:hover, [data-theme="dark"] #rightside > div > a:hover {
+  background-color: #007bff; /* 蓝色，适合暗色模式且鼠标悬停 */
+  color: #ffffff; /* 白色文字保持不变 */
+}
+
+/*底部切换按钮*/
+.layout>.recent-posts .pagination>* {
+  display: inline-block;
+  margin: 0 6px;
+  width: 2.5em;
+  height: 2.5em;
+  line-height: 2.5em;
+}
+
+/*底部圆角*/
+#pagination .page-number.current {
+    border-radius: 7px;
+}

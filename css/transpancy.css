@@ -1,0 +1,34 @@
+/* 首页文章栏背景透明 */
+#recent-posts .recent-post-item {
+    background: rgba(255, 255, 255,.5); 
+}
+
+/* 侧边栏透明 */
+#aside-content .card-widget {
+    background: rgba(255,255,255,.5);
+}
+
+/* 阅读模式下的卡片和小部件背景 */
+.read-mode #aside-content .card-widget{
+      background: rgba(255,255,255,.5);
+}
+.read-mode div#post{
+    background: rgba(255,255,255,.5);
+}
+
+/* 文章页背景 */
+ div#post{
+    background: rgba(255,255,255,.5);
+}
+    
+/* page页背景 */
+ div#page{
+    background: rgba(255,255,255,.5);
+}
+    
+/*archive页背景 */
+ div#archive {
+    background: rgba(255,255,255,.5);
+}    
+   
+/* 以下代表透明度为0.5 可以自行修改*/

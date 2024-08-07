@@ -1,0 +1,19 @@
+/* 定义CSS变量，用于背景图片 */
+:root {
+    --bg-mobile: url('/img/bg_mobile.webp');
+    --bg-desktop: url('/img/bg.webp');
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 1000px) {
+    .full_page, #web_bg {
+        background-image: var(--bg-mobile)!important;
+    }
+}
+
+/* PC端适配 */
+@media screen and (min-width: 1000px) {
+    .full_page, #web_bg {
+        background-image: var(--bg-desktop)!important;
+    }
+}
